@@ -1,8 +1,11 @@
 import React from "react";
-import "./App.css";
+import "../App.css";
+import AddToFav from "./AddToFav";
+import RemoveFav from "./RemoveFav";
 
 const MovieCard = (props) =>{
-    const FavoriteComponent = props.favoriteComponent;
+    const add = props.add;
+    const remove = props.remove;
     return(
         <div className="movie mx-3 d-flex flex-column">
             <div>
@@ -18,9 +21,19 @@ const MovieCard = (props) =>{
                 <span>{props.movie1.Type}</span>
                 <h3>{props.movie1.Title}</h3>
             </div>
-            <div className="fav d-flex justify-content-center align-items-center">
-                <FavoriteComponent/>
-            </div>
+            {props.isFav(props.movie1)
+                ?(
+                <div onClick={() => remove(props.movie1)} className="fav d-flex justify-content-center align-items-center">
+                <RemoveFav/>
+                </div>
+                )
+                :(
+                    <div onClick={() => add(props.movie1)} className="fav d-flex justify-content-center align-items-center">
+                    <AddToFav/>
+                    </div>
+                )
+
+            }
         </div>
     );
 };

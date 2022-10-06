@@ -1,59 +1,57 @@
-.movie-app{
-  margin-top:100px;
+.movie-app {
+  margin-top: 15px;
 }
-.movie h3{
-  font-size:20px;
+.movie h3 {
+  font-size: 20px;
 }
-.movie p{
+.movie p {
   color: white;
-  margin-left:5px;
+  margin-left: 5px;
 }
 
-.line{
+.line {
   height: 1px;
   width: 150px;
-  /* transform: rotate(90deg); */
   margin: 20px 30px;
-  border-top:2px solid white;
+  border-top: 2px solid rgba(255, 255, 255, 0.705);
 }
 
-.movie-heading h2{color:rgb(210, 210, 210) !important; font-size: 32px;}
+.movie-heading h2 {
+  color: rgba(210, 210, 210, 0.701) !important;
+  font-size: 28px;
+}
 
-.navbar{
+.navbar {
   display: block;
-  height:100px;
+  height: 80px;
   width: 100%;
   padding: 10px;
   background-color: rgba(17, 16, 16, 0.95);
 }
 
-.navbar h1{cursor: pointer;}
+.navbar h1 {
+  cursor: pointer;
+}
 
-.fav{
+.fav {
   display: flex;
-  justify-content:center;
-  color:rgb(210, 210, 210);
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  /* height: 100%;*/
-  /* width: 100%; */
+  justify-content: center;
+  color: rgb(210, 210, 210);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   border: 1px solid rgba(255, 255, 255, 0.511);
-  border-radius: 10px;
-  padding: 0px 7px 0px 5px;
-  top:2%;
-  left:62%;
-  background-color:rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  padding: 10px;
+  top: 3%;
+  left: 83%;
+  background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
   opacity: 0;
   cursor: pointer;
-  font-size:13px;
 }
 
-.fav svg{
-  margin:-5px 5px 8px -5px ;
-}
-
-.movie:hover .fav{
-  opacity: 1;
+.movie:hover .fav {
+  opacity: 0.7;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700");
@@ -71,20 +69,30 @@
 }
 
 body {
+  padding: 80px 0;
   font-family: var(--font-roboto);
   background-color: #141414 !important;
   color: white !important;
 }
-.poster{
+.poster {
   width: 310px;
   height: 460px;
-  border-radius:20px;
+  border-radius: 20px;
 }
 
-
 .NotFound {
-    margin-top: 250px;
-    color:rgb(134, 134, 134);
+  margin-top: 50px;
+  margin-bottom:40px;
+  color: rgb(134, 134, 134);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.NotFound h2 {
+  margin: -5px 0;
+  font-size: 25px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 h1 {
@@ -105,7 +113,7 @@ h1 {
 
 .search {
   width: 35%;
-  height: 55px;
+  height: 50px;
 
   display: flex;
   align-items: center;
@@ -113,7 +121,7 @@ h1 {
 
   padding: 1.5rem 1.75rem;
   border-radius: 3rem;
-  background: #1d1c1cd3
+  background: #1d1c1cd3;
   /* -webkit-box-shadow: 5px 5px 3px #14161a, -5px -5px 7px #222527;
   box-shadow: 5px 5px 3px #1c1d1f, -5px -5px 7px #222527; */
 }
@@ -121,7 +129,7 @@ h1 {
 .search input {
   flex: 1;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-family: var(--font-raleway);
   font-weight: 500;
   padding-right: 1rem;
@@ -134,7 +142,7 @@ h1 {
 .search img {
   width: 30px;
   height: 30px;
-  margin-bottom: 3px;
+  margin-top: 3px;
   cursor: pointer;
 }
 
@@ -241,6 +249,10 @@ h1 {
 }
 
 @media screen and (max-width: 600px) {
+  .navbar{
+    padding: 2rem 0;
+  }
+
   .app {
     padding: 4rem 2rem;
   }
@@ -277,20 +289,4 @@ h1 {
     width: "100%";
     margin: 1rem;
   }
-} 
-
-
-/* .search button {
-  padding: 20px 40px;
-  border-radius: 0.5rem;
-  margin-left: 15px;
-  color: #a1a1a1;
-  font-family: var(--font-raleway);
-  font-weight: 900;
-  letter-spacing: 0.75px;
-  font-size: 1.25rem;
-  cursor: pointer;
-  background: #1f2123;
-  -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
-  box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
-}*/
+}

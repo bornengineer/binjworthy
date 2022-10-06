@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import searchIcon from "./search.svg";
-// import MovieCard from "./MovieCard";
 import "bootstrap/dist/css/bootstrap.min.css";
-import MovieList from "./MovieList";
-import AddToFav from "./AddToFav";
-// import MovieListHeading from "./MovieListHeading"
+import searchIcon from "./search.svg";
+import MovieList from "./components/MovieList";
+import AddToFav from "./components/AddToFav";
+import RemoveFav from "./components/RemoveFav";
 // 9f6bb9f3
 
-// const  = () =>{
-//     return(
-
-//     );
-// }
 // const movie1 = {
 //   "Title": "Game of Thrones",
 //   "Year": "2011–2019",
@@ -21,12 +15,10 @@ import AddToFav from "./AddToFav";
 //   "Poster": "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_SX300.jpg"
 // }
 
-// let load = true;
 const API_URL = "http://www.omdbapi.com?apikey=9f6bb9f3";
 
 const App = () => {
   const searchMovies = async (title) => {
-    // load = false;
     const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
     console.log(data.Search);
@@ -35,11 +27,7 @@ const App = () => {
     } else {
       setMovies([]);
     }
-};
-//   const Preload = () => {
-//     load = true;
-//     console.log(load);
-//   };
+  };
 
   const [SearchTitle, setSearchTitle] = useState("");
 
@@ -168,15 +156,46 @@ const App = () => {
     },
   ]);
 
+  const [Favourites, setFavourites] = useState([]);
+
   useEffect(() => {
     searchMovies(SearchTitle);
   }, [SearchTitle]);
+
+  const isFavEmpty = () => {
+    return Favourites?.length === 0;
+  };
+
+  const addFavorite = (movie) => {
+    if (!isFavEmpty()) {
+      const temp = Favourites.filter(
+        (favourite) => favourite.imdbID === movie.imdbID
+      );
+      if (temp.length > 0) return;
+    }
+    const newFavourites = [...Favourites, movie];
+    setFavourites(newFavourites);
+  };
+
+  const RemoveFavoriteMovie = (movie) => {
+    const newFavourites = Favourites.filter(
+      (favourite) => favourite.imdbID !== movie.imdbID
+    );
+    setFavourites(newFavourites);
+  };
+
+  const isFavorite = (movie) => {
+    const temp = Favourites.filter(
+      (favourite) => favourite.imdbID === movie.imdbID
+    );
+    if (temp.length > 0) return true;
+  };
 
   let searchT;
   return (
     <div className="app">
       <div className="navbar fixed-top">
-        <div className="col-11 container-fluid d-flex justify-content-between aling-items-center ">
+        <div className="col-11 container-fluid d-flex justify-content-lg-between aling-items-center justify-content-center flex-sm-col">
           <h1 onClick={() => setSearchTitle("")}>MovieWorld</h1>
           <div className="search">
             <input
@@ -197,32 +216,35 @@ const App = () => {
         </div>
       </div>
       {SearchTitle === "" ? (
-        <MovieList movie1={LoadMovies} heading="Explore"  favoriteComponent = {AddToFav}/>
+        <MovieList
+          movie1={LoadMovies}
+          heading="Explore"
+          add={addFavorite}
+          remove={RemoveFavoriteMovie}
+          isFav={isFavorite}
+        />
       ) : (
-        <MovieList movie1={movies} heading="Search results" favoriteComponent = {AddToFav}/>
+        <MovieList
+          movie1={movies}
+          heading="Search results"
+          add={addFavorite}
+          remove={RemoveFavoriteMovie}
+          isFav={isFavorite}
+          notFound1="No movies found..."
+          notFound2="try searching with a different keyword"
+        />
       )}
+      <MovieList
+        movie1={Favourites}
+        heading="Favourites"
+        add={addFavorite}
+        remove={RemoveFavoriteMovie}
+        isFav={isFavorite}
+        notFound1="No favourites added"
+        notFound2="try adding some movies"
+      />
     </div>
   );
 };
 
 export default App;
-
-// {movies?.length > 0
-//     ? (
-//     ) : (
-//         <div className = "NotFound d-flex justify-content-center align-items-center">
-//             <h2>No Movies Found... <br/> try searching with a different keyword</h2>
-//         </div>
-//     )
-// }
-
-// <div className="movie-app">
-//     <div className="d-flex justify-content-center flex-wrap flex-row">
-//         <MovieListHeading heading = 'Explore'/>
-//     </div>
-//     <div className="d-flex  justify-content-center flex-wrap flex-row mt-2">
-//         {movies.map((movie) => (
-//             <MovieCard movie1 = {movie}/>
-//         ))}
-//     </div>
-// </div>

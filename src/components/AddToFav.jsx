@@ -1,14 +1,14 @@
 import React from "react";
 
+// <span className="m-2">Add to <br/>favourites </span>
 const AddToFav = () => {
   return (
     <>
-      <span className="m-2">Add to <br/>favourites </span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
-        fill="red"
+        fill="white"
         class="bi bi-heart-fill"
         viewBox="0 0 16 16"
       >
