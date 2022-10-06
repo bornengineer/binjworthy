@@ -3,17 +3,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import searchIcon from "./search.svg";
 import MovieList from "./components/MovieList";
-import AddToFav from "./components/AddToFav";
-import RemoveFav from "./components/RemoveFav";
 // 9f6bb9f3
-
-// const movie1 = {
-//   "Title": "Game of Thrones",
-//   "Year": "2011–2019",
-//   "imdbID": "tt0944947",
-//   "Type": "series",
-//   "Poster": "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_SX300.jpg"
-// }
 
 const API_URL = "http://www.omdbapi.com?apikey=9f6bb9f3";
 
@@ -33,7 +23,7 @@ const App = () => {
 
   const [movies, setMovies] = useState([]);
 
-  const [LoadMovies, setLoadMovies] = useState([
+  const [LoadMovies] = useState([
     {
       Title: "House of the Dragon",
       Year: "2022–",
@@ -162,6 +152,17 @@ const App = () => {
     searchMovies(SearchTitle);
   }, [SearchTitle]);
 
+  useEffect(() => {
+    const movieFromLocal = JSON.parse(
+      localStorage.getItem('react-movie-app-favourites')
+    );
+    setFavourites(movieFromLocal);
+  }, []);
+
+  const saveToLocalStorage = (items) => {
+    localStorage.setItem('react-movie-app-favourites', JSON.stringify(items));
+  };
+
   const isFavEmpty = () => {
     return Favourites?.length === 0;
   };
@@ -171,24 +172,28 @@ const App = () => {
       const temp = Favourites.filter(
         (favourite) => favourite.imdbID === movie.imdbID
       );
-      if (temp.length > 0) return;
+      if (temp?.length > 0) return;
     }
     const newFavourites = [...Favourites, movie];
     setFavourites(newFavourites);
+    saveToLocalStorage(newFavourites);
   };
 
   const RemoveFavoriteMovie = (movie) => {
+    if(isFavEmpty())return;
     const newFavourites = Favourites.filter(
       (favourite) => favourite.imdbID !== movie.imdbID
     );
     setFavourites(newFavourites);
+    saveToLocalStorage(newFavourites);
   };
 
   const isFavorite = (movie) => {
+    if(isFavEmpty())return false;
     const temp = Favourites.filter(
       (favourite) => favourite.imdbID === movie.imdbID
     );
-    if (temp.length > 0) return true;
+    if(temp.length > 0)return true;
   };
 
   let searchT;
