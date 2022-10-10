@@ -245,7 +245,7 @@ const App = () => {
     <div className="app">
       <div className="navbar fixed-top">
         <div className="col-11 container-fluid d-flex justify-content-lg-between aling-items-center justify-content-center flex-sm-col">
-          <h1 onClick={() => setSearchTitle("")}>MovieWorld</h1>
+          <h1 onClick={() => setSearchTitle("")}>BinjWorthy</h1>
           <div className="search">
             <input
               placeholder="Search movies and TV shows"
