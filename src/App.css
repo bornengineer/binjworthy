@@ -40,7 +40,7 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   border: 1px solid rgba(255, 255, 255, 0.511);
-  border-radius: 50%;
+  border-radius: 0px 15px 15px 0px;
   padding: 10px;
   top: 3%;
   left: 83%;
@@ -49,8 +49,27 @@
   opacity: 0;
   cursor: pointer;
 }
+.wish {
+  display: flex;
+  justify-content: center;
+  color: rgb(210, 210, 210);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.511);
+  border-radius: 15px 0px 0px 15px;
+  padding: 10px;
+  top: 3%;
+  left: 70%;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
 
 .movie:hover .fav {
+  opacity: 0.7;
+}
+.movie:hover .wish {
   opacity: 0.7;
 }
 

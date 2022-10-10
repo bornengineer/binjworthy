@@ -18,6 +18,10 @@ const MovieList = (props) => {
                 add={props.add}
                 remove={props.remove}
                 isFav = {props.isFav}
+
+                addWatch = {props.addWatch}
+                removeWatch = {props.removeWatch}
+                isWatch = {props.isWatch}
               />
             ))}
           </div>

@@ -148,36 +148,72 @@ const App = () => {
 
   const [Favourites, setFavourites] = useState([]);
 
+  const [Watchlist, setWatchlist] = useState([
+    {
+      Title: "House of the Dragon",
+      Year: "2022–",
+      imdbID: "tt11198330",
+      Type: "series",
+      Poster:
+        "https://m.media-amazon.com/images/M/MV5BZDBkZjRiNGMtZGU2My00ODdkLWI0MGYtNGU4MmJjN2MzOTkxXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg",
+    }
+  ]);
+
   useEffect(() => {
     searchMovies(SearchTitle);
   }, [SearchTitle]);
 
   useEffect(() => {
-    const movieFromLocal = JSON.parse(
+    const favMovieFromLocal = JSON.parse(
       localStorage.getItem('react-movie-app-favourites')
     );
-    setFavourites(movieFromLocal);
+    const watchMovieFromLocal = JSON.parse(
+      localStorage.getItem('react-movie-app-favourites')
+    );
+    setFavourites(favMovieFromLocal);
+    setFavourites(watchMovieFromLocal);
   }, []);
 
-  const saveToLocalStorage = (items) => {
+  const saveFavToLocalStorage = (items) => {
     localStorage.setItem('react-movie-app-favourites', JSON.stringify(items));
   };
+  const saveWatchlistToLocalStorage = (items) => {
+    localStorage.setItem('react-movie-app-watchlist', JSON.stringify(items));
+  }
 
-  const isFavEmpty = () => {
+  function isFavEmpty() {
     return Favourites?.length === 0;
-  };
+  }
 
-  const addFavorite = (movie) => {
+  function isWatchlistEmpty() {
+    return Watchlist?.length === 0;
+  }
+
+  function addFavorite(movie) {
     if (!isFavEmpty()) {
       const temp = Favourites.filter(
         (favourite) => favourite.imdbID === movie.imdbID
       );
-      if (temp?.length > 0) return;
+      if (temp?.length > 0)
+        return;
     }
     const newFavourites = [...Favourites, movie];
     setFavourites(newFavourites);
-    saveToLocalStorage(newFavourites);
-  };
+    saveFavToLocalStorage(newFavourites);
+  }
+
+  function addWatchlist(movie) {
+    if (!isWatchlistEmpty()) {
+      const temp = Watchlist.filter(
+        (watchlist) => watchlist.imdbID === movie.imdbID
+      );
+      if (temp?.length > 0)
+        return;
+    }
+    const newWatchlist = [...Watchlist, movie];
+    setWatchlist(newWatchlist);
+    saveWatchlistToLocalStorage(newWatchlist);
+  }
 
   const RemoveFavoriteMovie = (movie) => {
     if(isFavEmpty())return;
@@ -185,13 +221,30 @@ const App = () => {
       (favourite) => favourite.imdbID !== movie.imdbID
     );
     setFavourites(newFavourites);
-    saveToLocalStorage(newFavourites);
+    saveFavToLocalStorage(newFavourites);
+  };
+
+  const RemoveWatchlistMovie = (movie) => {
+    if(isWatchlistEmpty())return;
+    const newWatchlist = Watchlist.filter(
+      (watchlist) => watchlist.imdbID !== movie.imdbID
+    );
+    setWatchlist(newWatchlist);
+    saveWatchlistToLocalStorage(newWatchlist);
   };
 
   const isFavorite = (movie) => {
     if(isFavEmpty())return false;
     const temp = Favourites.filter(
       (favourite) => favourite.imdbID === movie.imdbID
+    );
+    if(temp.length > 0)return true;
+  };
+
+  const isWatchlistMovie = (movie) => {
+    if(isWatchlistEmpty())return false;
+    const temp = Watchlist.filter(
+      (watchlist) => watchlist.imdbID === movie.imdbID
     );
     if(temp.length > 0)return true;
   };
@@ -224,9 +277,15 @@ const App = () => {
         <MovieList
           movie1={LoadMovies}
           heading="Explore"
+          
           add={addFavorite}
           remove={RemoveFavoriteMovie}
           isFav={isFavorite}
+
+          addWatch={addWatchlist}
+          removeWatch={RemoveWatchlistMovie}
+          isWatch={isWatchlistMovie}
+
         />
       ) : (
         <MovieList
@@ -235,6 +294,11 @@ const App = () => {
           add={addFavorite}
           remove={RemoveFavoriteMovie}
           isFav={isFavorite}
+
+          addWatch={addWatchlist}
+          removeWatch={RemoveWatchlistMovie}
+          isWatch={isWatchlistMovie}
+
           notFound1="No movies found..."
           notFound2="try searching with a different keyword"
         />
@@ -245,7 +309,27 @@ const App = () => {
         add={addFavorite}
         remove={RemoveFavoriteMovie}
         isFav={isFavorite}
+
+        addWatch={addWatchlist}
+        removeWatch={RemoveWatchlistMovie}
+        isWatch={isWatchlistMovie}
+
         notFound1="No favourites added"
+        notFound2="try adding some movies"
+      />
+      <MovieList
+        movie1={Watchlist}
+        heading="Watchlist"
+
+        add={addFavorite}
+        remove={RemoveFavoriteMovie}
+        isFav={isFavorite}
+
+        addWatch={addWatchlist}
+        removeWatch={RemoveWatchlistMovie}
+        isWatch={isWatchlistMovie}
+
+        notFound1="No movies added to watchlist"
         notFound2="try adding some movies"
       />
     </div>
