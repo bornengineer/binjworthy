@@ -148,16 +148,7 @@ const App = () => {
 
   const [Favourites, setFavourites] = useState([]);
 
-  const [Watchlist, setWatchlist] = useState([
-    {
-      Title: "House of the Dragon",
-      Year: "2022–",
-      imdbID: "tt11198330",
-      Type: "series",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BZDBkZjRiNGMtZGU2My00ODdkLWI0MGYtNGU4MmJjN2MzOTkxXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg",
-    }
-  ]);
+  const [Watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {
     searchMovies(SearchTitle);
@@ -168,10 +159,10 @@ const App = () => {
       localStorage.getItem('react-movie-app-favourites')
     );
     const watchMovieFromLocal = JSON.parse(
-      localStorage.getItem('react-movie-app-favourites')
+      localStorage.getItem('react-movie-app-watchlist')
     );
     setFavourites(favMovieFromLocal);
-    setFavourites(watchMovieFromLocal);
+    setWatchlist(watchMovieFromLocal);
   }, []);
 
   const saveFavToLocalStorage = (items) => {
@@ -277,7 +268,7 @@ const App = () => {
         <MovieList
           movie1={LoadMovies}
           heading="Explore"
-          
+
           add={addFavorite}
           remove={RemoveFavoriteMovie}
           isFav={isFavorite}

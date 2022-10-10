@@ -12,7 +12,7 @@ const MovieList = (props) => {
         </div>
         {props.movie1?.length > 0 ? (
           <div className="d-flex  justify-content-center flex-wrap flex-row mt-2">
-            {props.movie1.map((movie, index) => (
+            {props.movie1.map((movie) => (
               <MovieCard
                 movie1={movie}
                 add={props.add}
