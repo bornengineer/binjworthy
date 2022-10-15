@@ -4,6 +4,9 @@ import React from "react";
 const AddToFav = () => {
   return (
     <>
+      <div class="tooltip">
+        <span class="tooltiptext">add to favourite</span>
+      </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

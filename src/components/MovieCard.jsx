@@ -11,6 +11,7 @@ const MovieCard = (props) => {
   const addWatch = props.addWatch;
   const removeWatch = props.removeWatch;
   return (
+    <>
     <div className="movie mx-3 d-flex flex-column">
       <div>
         <p>{props.movie1.Year}</p>
@@ -61,6 +62,7 @@ const MovieCard = (props) => {
         </div>
       )};
     </div>
+  </>
   );
 };
 
