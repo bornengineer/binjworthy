@@ -156,21 +156,21 @@ const App = () => {
 
   useEffect(() => {
     const favMovieFromLocal = JSON.parse(
-      localStorage.getItem('react-movie-app-favourites')
+      localStorage.getItem("react-movie-app-favourites")
     );
     const watchMovieFromLocal = JSON.parse(
-      localStorage.getItem('react-movie-app-watchlist')
+      localStorage.getItem("react-movie-app-watchlist")
     );
     setFavourites(favMovieFromLocal);
     setWatchlist(watchMovieFromLocal);
   }, []);
 
   const saveFavToLocalStorage = (items) => {
-    localStorage.setItem('react-movie-app-favourites', JSON.stringify(items));
+    localStorage.setItem("react-movie-app-favourites", JSON.stringify(items));
   };
   const saveWatchlistToLocalStorage = (items) => {
-    localStorage.setItem('react-movie-app-watchlist', JSON.stringify(items));
-  }
+    localStorage.setItem("react-movie-app-watchlist", JSON.stringify(items));
+  };
 
   function isFavEmpty() {
     return Favourites?.length === 0;
@@ -182,33 +182,31 @@ const App = () => {
 
   function addFavorite(movie) {
     if (!isFavEmpty()) {
-      const temp = Favourites.filter(
+      const temp = (Favourites || []).filter(
         (favourite) => favourite.imdbID === movie.imdbID
       );
-      if (temp?.length > 0)
-        return;
+      if (temp?.length > 0) return;
     }
-    const newFavourites = [...Favourites, movie];
+    const newFavourites = (Favourites||[]).concat(movie);
     setFavourites(newFavourites);
     saveFavToLocalStorage(newFavourites);
   }
 
   function addWatchlist(movie) {
     if (!isWatchlistEmpty()) {
-      const temp = Watchlist.filter(
+      const temp = (Watchlist || []).filter(
         (watchlist) => watchlist.imdbID === movie.imdbID
       );
-      if (temp?.length > 0)
-        return;
+      if (temp?.length > 0) return;
     }
-    const newWatchlist = [...Watchlist, movie];
+    const newWatchlist = (Watchlist||[]).concat(movie);
     setWatchlist(newWatchlist);
     saveWatchlistToLocalStorage(newWatchlist);
   }
 
   const RemoveFavoriteMovie = (movie) => {
-    if(isFavEmpty())return;
-    const newFavourites = Favourites.filter(
+    if (isFavEmpty()) return;
+    const newFavourites = (Favourites || []).filter(
       (favourite) => favourite.imdbID !== movie.imdbID
     );
     setFavourites(newFavourites);
@@ -216,8 +214,8 @@ const App = () => {
   };
 
   const RemoveWatchlistMovie = (movie) => {
-    if(isWatchlistEmpty())return;
-    const newWatchlist = Watchlist.filter(
+    if (isWatchlistEmpty()) return;
+    const newWatchlist = (Watchlist || []).filter(
       (watchlist) => watchlist.imdbID !== movie.imdbID
     );
     setWatchlist(newWatchlist);
@@ -225,19 +223,21 @@ const App = () => {
   };
 
   const isFavorite = (movie) => {
-    if(isFavEmpty())return false;
-    const temp = Favourites.filter(
-      (favourite) => favourite.imdbID === movie.imdbID
+    if (isFavEmpty()) return false;
+    const temp = (Favourites || []).filter(
+      (fav) => fav.imdbID === movie.imdbID
     );
-    if(temp.length > 0)return true;
+    if (temp.length > 0) return true;
+    else return false;
   };
 
   const isWatchlistMovie = (movie) => {
-    if(isWatchlistEmpty())return false;
-    const temp = Watchlist.filter(
+    if (isWatchlistEmpty()) return false;
+    const temp = (Watchlist || []).filter(
       (watchlist) => watchlist.imdbID === movie.imdbID
     );
-    if(temp.length > 0)return true;
+    if (temp.length > 0) return true;
+    else return false;
   };
 
   let searchT;
@@ -268,15 +268,12 @@ const App = () => {
         <MovieList
           movie1={LoadMovies}
           heading="Explore"
-
           add={addFavorite}
           remove={RemoveFavoriteMovie}
           isFav={isFavorite}
-
           addWatch={addWatchlist}
           removeWatch={RemoveWatchlistMovie}
           isWatch={isWatchlistMovie}
-
         />
       ) : (
         <MovieList
@@ -285,11 +282,9 @@ const App = () => {
           add={addFavorite}
           remove={RemoveFavoriteMovie}
           isFav={isFavorite}
-
           addWatch={addWatchlist}
           removeWatch={RemoveWatchlistMovie}
           isWatch={isWatchlistMovie}
-
           notFound1="No movies found..."
           notFound2="try searching with a different keyword"
         />
@@ -300,26 +295,21 @@ const App = () => {
         add={addFavorite}
         remove={RemoveFavoriteMovie}
         isFav={isFavorite}
-
         addWatch={addWatchlist}
         removeWatch={RemoveWatchlistMovie}
         isWatch={isWatchlistMovie}
-
         notFound1="No favourites added"
         notFound2="try adding some movies"
       />
       <MovieList
         movie1={Watchlist}
         heading="Watchlist"
-
         add={addFavorite}
         remove={RemoveFavoriteMovie}
         isFav={isFavorite}
-
         addWatch={addWatchlist}
         removeWatch={RemoveWatchlistMovie}
         isWatch={isWatchlistMovie}
-
         notFound1="No movies added to watchlist"
         notFound2="try adding some movies"
       />
